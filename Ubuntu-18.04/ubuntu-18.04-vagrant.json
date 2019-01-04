@@ -59,7 +59,8 @@
                 "--cpus",
                 "1"
             ]
-            ]
+            ],
+            "post_shutdown_delay": "30s"
         }
     ],
     "provisioners": [
