@@ -9,3 +9,4 @@ echo 'APT::Periodic::Enable "0";' >> /etc/apt/apt.conf.d/10periodic
 
 apt update
 apt upgrade -y
+apt full-upgrade -y
