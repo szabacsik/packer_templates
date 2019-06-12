@@ -3,3 +3,4 @@ Ubuntu-18.04/output/*.box
 \.idea/
 Ubuntu-18.04/iso/
 \.vagrant/
+Ubuntu-18.04/output-virtualbox-iso/
