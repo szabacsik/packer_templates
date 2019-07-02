@@ -1,4 +1,8 @@
 {
+    "variables": {
+        "cloud_token": "__ACCESS_TOKEN__https://app.vagrantup.com/settings/security",
+        "version": "1.0.{{isotime \"20060102\"}}"
+    },
     "builders": [
         {
             "type": "virtualbox-iso",
@@ -45,7 +49,7 @@
             "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
             "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
             "virtualbox_version_file": ".vbox_version",
-            "vm_name": "packer-ubuntu-18.04.2-amd64",
+            "vm_name": "packer-ubuntu-18.04.2-amd64-{{user `version`}}",
             "vboxmanage": [
             [
                 "modifyvm",
@@ -85,9 +89,19 @@
             "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'"
         }
     ],
-    "post-processors": [{
+    "post-processors": [
+        [
+    {
       "type": "vagrant",
       "compression_level": "8",
-      "output": "output/ubuntu-18.04.2.box"
-    }]
+      "output": "output/ubuntu-18.04.2-{{user `version`}}.box"
+    },
+    {
+      "type": "vagrant-cloud",
+      "box_tag": "szabacsik/ubuntu",
+      "access_token": "{{user `cloud_token`}}",
+      "version": "{{user `version`}}",
+      "keep_input_artifact": false,
+      "version_description": "{{user `version`}}"
+    }]]
   }
